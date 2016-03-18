@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void bindWidget() {
         userEditText = (EditText) findViewById(R.id.editText);
-        passwordEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
 
     }
 
@@ -63,13 +63,36 @@ public class MainActivity extends AppCompatActivity {
         passwordString = passwordEditText.getText().toString().trim();
 
         //Check space
-        if (userString.equals("")|| passwordString.equals("")) {
+        if (userString.equals("") || passwordString.equals("")) {
             MyAlert myAlert = new MyAlert();
             myAlert.myDialog(MainActivity.this, "กรุณากรอกให้ครบ ทุกช่อง");
 
+        } else {
+            checkUser();
         }
 
     }
+
+    private void checkUser() {
+
+        try {
+
+            String[] resultStrings = myManage.searchUser(userString);
+            if (passwordString.equals(resultStrings[2])) {
+                //passture
+
+            } else {
+                //passFalse
+                MyAlert myAlert = new MyAlert();
+                myAlert.myDialog(MainActivity.this, "Password ผิด");
+            }
+
+        } catch (Exception e) {
+            MyAlert myAlert = new MyAlert();
+            myAlert.myDialog(MainActivity.this, "ไม่มี " + userString + " ในฐาน");
+        }
+
+    } //checkUser
 
     private void synJSONtoSQLite() {
 
