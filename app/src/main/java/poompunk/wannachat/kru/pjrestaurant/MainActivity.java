@@ -5,6 +5,8 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,11 +25,16 @@ public class MainActivity extends AppCompatActivity {
 
     //ex
     private MyManage myManage;
+    private EditText userEditText, passwordEditText;
+    private String  userString, passwordString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // bind widget
+        bindWidget();
 
         //Request SQLite
         myManage = new MyManage(this);
@@ -43,6 +50,26 @@ public class MainActivity extends AppCompatActivity {
 
 
     }//main method
+
+    private void bindWidget() {
+        userEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText);
+
+    }
+
+    public void clickSignInMain(View view) {
+
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+
+        //Check space
+        if (userString.equals("")|| passwordString.equals("")) {
+            MyAlert myAlert = new MyAlert();
+            myAlert.myDialog(MainActivity.this, "กรุณากรอกให้ครบ ทุกช่อง");
+
+        }
+
+    }
 
     private void synJSONtoSQLite() {
 
