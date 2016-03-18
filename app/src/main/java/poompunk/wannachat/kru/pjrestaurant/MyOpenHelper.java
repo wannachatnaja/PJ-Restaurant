@@ -38,7 +38,7 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             "Phone text," +
             "FoodSet text," +
             "Amount text," +
-            "total text);";
+            "Total text);";
 
     public MyOpenHelper(Context context) {
         super(context, database_name, null, database_version);
