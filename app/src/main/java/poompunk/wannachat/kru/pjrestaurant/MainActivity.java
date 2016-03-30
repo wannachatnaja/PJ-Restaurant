@@ -1,5 +1,6 @@
 package poompunk.wannachat.kru.pjrestaurant;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
     }//main method
 
+    public void clickSignupmain(View view) {
+        startActivity(new Intent(this,SignUpActivity.class));
+    }
+
+
     private void bindWidget() {
         userEditText = (EditText) findViewById(R.id.editText);
         passwordEditText = (EditText) findViewById(R.id.editText2);
@@ -80,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
             String[] resultStrings = myManage.searchUser(userString);
             if (passwordString.equals(resultStrings[2])) {
                 //passture
-
+                Intent intent = new Intent(MainActivity.this, OrderActivity.class);
+                intent.putExtra("Result", resultStrings);
+                startActivity(intent);
+                finish();
             } else {
                 //passFalse
                 MyAlert myAlert = new MyAlert();
